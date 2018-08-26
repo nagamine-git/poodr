@@ -1,3 +1,5 @@
+require_relative './item.rb'
+
 # VendingMachine
 class VendingMachine
   attr_reader :items
@@ -6,12 +8,16 @@ class VendingMachine
     @items = args[:items] || {}
   end
 
-  def add(name, price)
-    @items.store(name, price)
+  def add(item)
+    @items.store(item.name, price: item.price)
     @items
   end
 
-  def buy(name)
-    @items.find {|key,value| key == name}
+  def buy(order)
+    found_item = items[order[:name]]
+    return '商品か見つかりませんでした' if found_item.nil?
+    remining_money = order[:money] - found_item[:price]
+    return '残金が足りませんでした' if remining_money < 0
+    remining_money
   end
 end

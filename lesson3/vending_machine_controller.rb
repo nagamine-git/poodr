@@ -1,8 +1,10 @@
 require_relative './vending_machine.rb'
 
 vm = VendingMachine.new({})
+@money = 1000
 
-puts vm.add('hoge', 100)
-puts vm.add('yaea', 100)
-puts '==='
-puts vm.add('hoge', 100)
+item = Item.new(name: 'ポカリ', price: 120)
+puts vm.add(item)
+item = Item.new(name: 'コーラ', price: 150)
+puts vm.add(item)
+puts vm.buy(name: 'ポカリ', money: @money)
